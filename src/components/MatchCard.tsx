@@ -127,7 +127,7 @@ export default function MatchCard({ match }: Props) {
       ) : (
         <div className="divide-y divide-slate-700/60">
           {state.players.map(player => {
-            const bets: Bet[] = match.bets[player.id] ?? [];
+            const bets: Bet[] = (match.bets ?? {})[player.id] ?? [];
             const net = playerNet(bets);
             const hasSettled = bets.some(b => b.status !== 'pending');
 

@@ -55,7 +55,7 @@ export default function Leaderboard() {
 function getBetStats(playerId: string, matches: Match[]) {
   let wins = 0, losses = 0, pending = 0;
   for (const m of matches) {
-    for (const bet of m.bets[playerId] ?? []) {
+    for (const bet of (m.bets ?? {})[playerId] ?? []) {
       if (bet.status === 'win') wins++;
       else if (bet.status === 'loss') losses++;
       else pending++;

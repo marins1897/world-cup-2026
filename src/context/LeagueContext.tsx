@@ -174,10 +174,21 @@ export function LeagueProvider({ children }: { children: React.ReactNode }) {
         lastSynced.current = seed.lastUpdated;
         set(leagueRef, seed);
         dispatch({ type: '_SYNC', state: seed });
-      } else if (remote.lastUpdated !== lastSynced.current) {
-        // A change from another client (or our own seed returned).
-        lastSynced.current = remote.lastUpdated;
-        dispatch({ type: '_SYNC', state: remote });
+      } else {
+        // Firebase drops empty arrays → normalize to safe defaults.
+        const normalized: LeagueState = {
+          lastUpdated: remote.lastUpdated ?? '',
+          players: remote.players ?? [],
+          // Firebase drops empty objects/arrays — ensure bets is always {}
+          matches: (remote.matches ?? BASE_MATCHES).map((m: LeagueState['matches'][number]) => ({
+            ...m,
+            bets: m.bets ?? {},
+          })),
+        };
+        if (normalized.lastUpdated !== lastSynced.current) {
+          lastSynced.current = normalized.lastUpdated;
+          dispatch({ type: '_SYNC', state: normalized });
+        }
       }
 
       setLoading(false);
@@ -203,7 +214,7 @@ export function LeagueProvider({ children }: { children: React.ReactNode }) {
   const getScore = useCallback(
     (playerId: string) =>
       state.matches.reduce((total, m) =>
-        (m.bets[playerId] ?? []).reduce((t, b) => {
+        ((m.bets ?? {})[playerId] ?? []).reduce((t, b) => {
           if (b.status === 'win') return t + b.odds;
           if (b.status === 'loss') return t - b.odds;
           return t;
