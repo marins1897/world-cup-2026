@@ -27,7 +27,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-900">
       {/* ─── Header ───────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-20 bg-slate-900/95 backdrop-blur border-b border-slate-800 shadow-lg shadow-black/30">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <span className="text-2xl flex-shrink-0">⚽</span>
             <div className="min-w-0">
