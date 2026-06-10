@@ -34,7 +34,7 @@ const EMPTY_LEAGUE: LeagueState = {
 
 // ── Reducer ──────────────────────────────────────────────────────────────────
 function newBet(): Bet {
-  return { id: crypto.randomUUID(), tip: '', odds: 2.0, status: 'pending' };
+  return { id: crypto.randomUUID(), tip: '', odds: 0, status: 'pending' };
 }
 
 type Action =

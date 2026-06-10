@@ -18,7 +18,7 @@ export default function ShareLeague() {
 
   function handleWhatsApp() {
     const text = encodeURIComponent(
-      `Pridruži se našoj SP 2026 Kladionici! ⚽🏆\nOtvori ovaj link — oklade se sinkroniziraju uživo za sve:\n${url}`
+      `Pridruži se našoj optimističnoj SP 2026 Kladionici! \nOtvori ovaj link - oklade se sinkroniziraju uživo za sve:\n${url}`
     );
     window.open(`https://wa.me/?text=${text}`, '_blank');
   }

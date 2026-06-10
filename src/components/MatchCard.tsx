@@ -213,13 +213,13 @@ function BetRow({ bet, matchId, playerId, locked, dispatch }: BetRowProps) {
           type="number"
           className="input w-20 text-sm h-8 px-2 text-right pr-1 bg-slate-800/80 tabular-nums"
           placeholder="2.00"
-          value={bet.odds}
+          value={bet.odds || ''}
           disabled={locked}
           step="0.01"
           min="1.01"
           onChange={e => {
             const v = parseFloat(e.target.value);
-            dispatch({ type: 'UPDATE_BET', matchId, playerId, betId: bet.id, patch: { odds: isNaN(v) ? 1.0 : v } });
+            dispatch({ type: 'UPDATE_BET', matchId, playerId, betId: bet.id, patch: { odds: isNaN(v) ? 0 : v } });
           }}
         />
         <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 pointer-events-none">×</span>
